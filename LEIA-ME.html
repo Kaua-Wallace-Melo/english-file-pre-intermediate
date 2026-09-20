@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English File | Guia de uso</title>
+<style>
+  :root {
+    --bg: #eef1f4;
+    --paper: #ffffff;
+    --ink: #20262e;
+    --muted: #65707d;
+    --line: #d7dde4;
+    --accent: #3157a6;
+    --accent-soft: #e8eefb;
+    --warning: #fff6df;
+    --warning-line: #e7c66b;
+    --code: #202733;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.6 "Segoe UI", system-ui, sans-serif;
+  }
+  .wrap { width: min(900px, calc(100% - 32px)); margin: 0 auto; }
+  header {
+    padding: 56px 0 42px;
+    background: linear-gradient(135deg, #20395f, #3157a6);
+    color: #fff;
+  }
+  header .wrap { position: relative; }
+  .eyebrow {
+    margin: 0 0 10px;
+    color: #cbd8f3;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  h1, h2 { line-height: 1.2; }
+  h1 { max-width: 700px; margin: 0 0 12px; font-size: clamp(30px, 6vw, 48px); }
+  header p { max-width: 650px; margin: 0; color: #e3eaf8; font-size: 18px; }
+  main { padding: 30px 0 56px; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  section {
+    margin-bottom: 18px;
+    padding: 24px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 5px 18px rgba(32, 45, 62, .06);
+  }
+  section.wide { grid-column: 1 / -1; }
+  h2 { margin: 0 0 14px; font-size: 23px; }
+  h3 { margin: 20px 0 6px; font-size: 17px; }
+  p { margin: 8px 0; }
+  ol, ul { margin: 10px 0 0; padding-left: 24px; }
+  li { margin: 7px 0; }
+  code {
+    padding: 2px 5px;
+    border-radius: 4px;
+    background: var(--accent-soft);
+    color: #254785;
+    font-size: .92em;
+  }
+  pre {
+    overflow-x: auto;
+    margin: 14px 0 8px;
+    padding: 16px;
+    border-radius: 6px;
+    background: var(--code);
+    color: #f1f5fb;
+    font: 14px/1.5 Consolas, "Courier New", monospace;
+  }
+  .note {
+    padding: 14px 16px;
+    border-left: 4px solid var(--warning-line);
+    background: var(--warning);
+  }
+  .tag {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  footer { color: var(--muted); font-size: 14px; text-align: center; }
+  @media (max-width: 680px) {
+    .wrap { width: min(100% - 22px, 900px); }
+    header { padding: 38px 0 32px; }
+    main { padding-top: 20px; }
+    .grid { grid-template-columns: 1fr; gap: 12px; }
+    section.wide { grid-column: auto; }
+    section { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <p class="eyebrow">Guia de uso</p>
+    <h1>English File Pre-Intermediate</h1>
+    <p>Leia o livro, navegue pelas páginas e ouça os áudios diretamente no navegador.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+    <section>
+      <span class="tag">Comece aqui</span>
+      <h2>Como usar</h2>
+      <ol>
+        <li>Descompacte a pasta em qualquer lugar do computador.</li>
+        <li>Confira se os MP3 estão dentro da pasta <code>audio</code>.</li>
+        <li>Abra <code>index.html</code> com um duplo clique.</li>
+        <li>Clique nos ícones de áudio presentes nas páginas.</li>
+      </ol>
+    </section>
+
+    <section>
+      <span class="tag">Navegação</span>
+      <h2>Recursos</h2>
+      <ul>
+        <li>Use as setas ou o campo de página para navegar.</li>
+        <li>Ajuste o zoom conforme o tamanho da janela.</li>
+        <li>Use <strong>Destacar áudios</strong> para localizar os botões.</li>
+        <li>Pressione espaço para pausar ou retomar.</li>
+        <li>Use as setas esquerda e direita para avançar 5 segundos.</li>
+        <li>Altere a velocidade e repita uma faixa quando quiser.</li>
+      </ul>
+    </section>
+
+    <section class="wide">
+      <span class="tag">Novo livro</span>
+      <h2>Adicionar outro PDF</h2>
+      <p>O índice usa imagens WebP para funcionar por duplo clique, sem servidor ou internet. Para preparar outro livro:</p>
+      <ol>
+        <li>Faça uma cópia de segurança da pasta <code>pages</code>.</li>
+        <li>Instale o <strong>ImageMagick</strong> no Windows e habilite a opção de adicioná-lo ao PATH.</li>
+        <li>Crie uma pasta vazia chamada <code>pages-novo</code>.</li>
+        <li>Abra o PowerShell na pasta do índice e execute o comando abaixo, substituindo o caminho do PDF:</li>
+      </ol>
+      <pre>magick -density 150 -scene 1 "C:\caminho\outro-livro.pdf" -quality 85 "pages-novo\p%03d.webp"</pre>
+      <ol start="5">
+        <li>Confira se os arquivos estão nomeados como <code>p001.webp</code>, <code>p002.webp</code>, <code>p003.webp</code>...</li>
+        <li>Substitua a pasta antiga: renomeie <code>pages</code> e depois renomeie <code>pages-novo</code> para <code>pages</code>.</li>
+        <li>Abra o <code>index.html</code>. O número de páginas será detectado automaticamente.</li>
+      </ol>
+      <div class="note"><strong>Atenção:</strong> se o primeiro arquivo aparecer como <code>p000.webp</code>, renomeie-o para <code>p001.webp</code> e ajuste a numeração dos arquivos seguintes.</div>
+    </section>
+
+    <section>
+      <span class="tag">Áudio</span>
+      <h2>Adicionar MP3</h2>
+      <p>Coloque os arquivos na pasta <code>audio</code>. Se o padrão dos nomes for diferente, altere no início do bloco <code>&lt;script&gt;</code> do <code>index.html</code>:</p>
+      <ul>
+        <li><code>AUDIO_DIR</code>: pasta dos áudios.</li>
+        <li><code>AUDIO_PREFIX</code>: texto antes do número da faixa.</li>
+        <li><code>AUDIO_EXT</code>: extensão dos arquivos.</li>
+      </ul>
+      <p>Se uma faixa não tocar, o player exibirá o nome exato do arquivo que procurou.</p>
+    </section>
+
+    <section>
+      <span class="tag">Personalização</span>
+      <h2>Botões clicáveis</h2>
+      <p>Os botões de áudio ficam na constante <code>HOTSPOTS</code>. Para outro livro, eles precisam ser recriados com:</p>
+      <ul>
+        <li>número da página;</li>
+        <li>número da faixa;</li>
+        <li>posição e tamanho do ícone em porcentagem.</li>
+      </ul>
+      <p>Sem novos hotspots, o livro será exibido normalmente, mas não terá ícones de áudio clicáveis. Para fazer esse trabalho, use uma IA como o Claude Code</p>
+    </section>
+
+    <section class="wide">
+      <span class="tag">Organização</span>
+      <h2>Estrutura da pasta</h2>
+      <pre>index.html
+LEIA-ME.html
+pages/
+  p001.webp
+  p002.webp
+  ...
+audio/
+  nome-do-arquivo.mp3</pre>
+      <p>O PDF original pode ficar na pasta como fonte da conversão, mas não é necessário para usar o índice depois que as páginas WebP foram geradas.</p>
+    </section>
+  </div>
+
+  <footer>Material para uso pessoal com o seu próprio livro e os seus próprios áudios.</footer>
+</main>
+</body>
+</html>

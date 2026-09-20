@@ -1,0 +1,2 @@
+Coloque nesta pasta todos os arquivos MP3 do livro, com os nomes originais.
+Exemplo: EF4e_PreintSB_2.16.mp3
