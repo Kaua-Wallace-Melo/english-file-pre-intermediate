@@ -315,7 +315,7 @@ const AUDIO_EXT    = ".mp3";
 const EXTRA_TRACKS = [, "2.22", "7.24"];
 
 const PAGE_DIR = "pages/";
-const MAX_PAGE_SCAN = 1000;
+const PAGE_COUNT = 169;
 
 /* Ícones de áudio: página (do PDF) -> [faixa, x, y, largura, altura] (em % da página).
    Faixa com barra, como "8.7/8.8", toca as duas em sequência. */
@@ -341,22 +341,6 @@ let PAGE_COUNT = 0;
 
 function pageUrl(n) {
   return PAGE_DIR + "p" + String(n).padStart(3, "0") + ".webp";
-}
-
-function imageExists(url) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(false);
-    img.src = url;
-  });
-}
-
-async function discoverPageCount() {
-  for (let n = 1; n <= MAX_PAGE_SCAN; n++) {
-    if (!await imageExists(pageUrl(n))) return n - 1;
-  }
-  return MAX_PAGE_SCAN;
 }
 
 function renderPages() {
@@ -388,8 +372,7 @@ for (let n = 1; n <= PAGE_COUNT; n++) {
 }
 }
 
-async function initializePages() {
-  PAGE_COUNT = await discoverPageCount();
+function initializePages() {
   if (!PAGE_COUNT) {
     $("pageTotal").textContent = "erro";
     pagesEl.textContent = "Não foi possível encontrar as páginas na pasta pages.";
@@ -407,7 +390,7 @@ initializePages();
 
 /* ---------- player ---------- */
 const audio = new Audio();
-audio.preload = "auto";
+audio.preload = "none";
 const player = $("player");
 let queue = [], qIdx = 0, activeEl = null, loop = false;
 
