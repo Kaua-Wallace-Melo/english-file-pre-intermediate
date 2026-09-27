@@ -109,6 +109,7 @@
   }
   .page {
     position: relative; width: var(--pw); flex: none;
+    aspect-ratio: 1200 / 1513;
     background: #fff; box-shadow: var(--shadow);
     border-radius: 2px;
   }
@@ -448,17 +449,26 @@ function updateTrackNav() {
   $("nextTrack").disabled = position < 0 || position >= allTracks.length - 1;
 }
 
+function goToTrackPage(track) {
+  const page = trackPages.get(track);
+  if (page) goTo(page, true);
+}
+
 function navigateTrack(direction) {
   if (!queue.length) return;
   if (queue.length > 1) {
     const nextIndex = qIdx + direction;
-    if (nextIndex >= 0 && nextIndex < queue.length) loadTrack(nextIndex);
+    if (nextIndex >= 0 && nextIndex < queue.length) {
+      loadTrack(nextIndex);
+      goToTrackPage(queue[nextIndex]);
+    }
     return;
   }
   const nextIndex = allTracks.indexOf(queue[0]) + direction;
   if (nextIndex < 0 || nextIndex >= allTracks.length) return;
   queue = [allTracks[nextIndex]];
   loadTrack(0);
+  goToTrackPage(queue[0]);
 }
 
 function setPlayIcon(playing) {
@@ -567,7 +577,9 @@ document.addEventListener("keydown", (e) => {
 /* ---------- navegação e zoom ---------- */
 function goTo(n, smooth) {
   n = Math.min(PAGE_COUNT, Math.max(1, n | 0));
-  $("p" + n).scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
+  const page = $("p" + n);
+  const top = page.getBoundingClientRect().top + window.scrollY - document.querySelector(".topbar").offsetHeight - 12;
+  window.scrollTo({ top, behavior: smooth ? "smooth" : "auto" });
   pageInput.value = n;
 }
 pageInput.addEventListener("change", () => goTo(parseInt(pageInput.value, 10) || 1, false));
@@ -640,16 +652,21 @@ function toggleExtra(open) {
   if (open) { extraMsg.textContent = ""; renderExtraResults(); extraInput.select(); extraInput.focus(); }
 }
 function playExtra() {
-  const v = extraInput.value.trim().replace(/\s+/g, "").replace(/,/g, "/");
+  const v = extraInput.value.trim().replace(/\s+/g, "").replace(/,/g, ".");
   if (!/^\d{1,2}\.\d{1,2}(\/\d{1,2}\.\d{1,2})*$/.test(v)) {
     extraMsg.textContent = "Use o formato unidade.faixa, por exemplo 2.22.";
+    return;
+  }
+  const tracks = v.split("/");
+  if (tracks.some((track) => !allTracks.includes(track))) {
+    extraMsg.textContent = "Essa faixa não está cadastrada no livro.";
     return;
   }
   extraMsg.textContent = "";
   saveRecent(v);
   const page = trackPages.get(v.split("/")[0]);
-  if (page) goTo(page, true);
-  playTracks(v.split("/"), document.createElement("span"));
+  playTracks(tracks, document.createElement("span"));
+  if (page) goTo(page, false);
 }
 extraBtn.addEventListener("click", () => toggleExtra(extraPop.hidden));
 $("extraGo").addEventListener("click", playExtra);
